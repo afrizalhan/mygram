@@ -2,7 +2,7 @@ package database
 
 import (
 	"fmt"
-	// "mygram/models"
+	"mygram/models"
 	"log"
 
 	"gorm.io/driver/postgres"
@@ -29,7 +29,7 @@ func StartDB(){
 		log.Fatal("error connecting to database",err)
 	}
 
-	// db.Debug().AutoMigrate(models.User{}, models.Product{})
+	db.Debug().AutoMigrate(models.User{}, models.Photo{}, models.Comment{}, models.SocialMedia{})
 }
 
 func GetDB() *gorm.DB{
