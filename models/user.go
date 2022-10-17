@@ -17,6 +17,14 @@ type User struct {
 	Age int `gorm:"not null" json:"age" form:"age" valid:"required~age is required"`
 	CreatedAt time.Time `json:"created_at,omitempty"`
 	UpdatedAt time.Time `json:"updated_at,omitempty"`
+	Photo []Photo `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" json:"photo"`
+	Comment []Comment `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" json:"comment"`
+	Socmed []SocialMedia `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" json:"socmed"`
+}
+
+type UserUpdate struct {
+	Email    string `gorm:"not null;uniqueIndex" json:"email" form:"email" valid:"required~email is required,email~Invalid email format"`
+	Password string `gorm:"not null" json:"password" form:"password" valid:"required~password is required"`
 }
 
 func (u *User) BeforeCreate(tx *gorm.DB) (err error) {
@@ -33,6 +41,18 @@ func (u *User) BeforeCreate(tx *gorm.DB) (err error) {
 	}
 
 	u.Password = helpers.HashPassword(u.Password)
+
+	err = nil
+	return
+}
+
+func (up *UserUpdate) BeforeUpdate(tx *gorm.DB) (err error) {
+	_, errCreate := govalidator.ValidateStruct(up)
+
+	if errCreate != nil {
+		err = errCreate
+		return err
+	}
 
 	err = nil
 	return
