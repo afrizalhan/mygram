@@ -1,0 +1,158 @@
+definitions:
+  controllers.LoginInput:
+    properties:
+      email:
+        example: maryjane@gmail.com
+        type: string
+      password:
+        example: maryjanewats
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  controllers.RegisterInput:
+    properties:
+      age:
+        example: 8
+        type: integer
+      email:
+        example: maryjane@gmail.com
+        type: string
+      password:
+        example: maryjanewats
+        type: string
+      username:
+        example: maryj
+        type: string
+    required:
+    - age
+    - email
+    - password
+    - username
+    type: object
+  controllers.UpdateInput:
+    properties:
+      email:
+        example: johndoe@gmail.com
+        type: string
+      username:
+        example: johndoe
+        type: string
+    required:
+    - email
+    - username
+    type: object
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+paths:
+  /users/{userId}:
+    delete:
+      description: Delete a User by id.
+      parameters:
+      - description: User id
+        in: path
+        name: userId
+        required: true
+        type: string
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: boolean
+            type: object
+      security:
+      - BearerToken: []
+      summary: Delete one User .
+      tags:
+      - User
+    put:
+      description: Update User by id.
+      parameters:
+      - description: User id
+        in: path
+        name: userId
+        required: true
+        type: string
+      - description: the body to update user
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.UpdateInput'
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerToken: []
+      summary: Update User.
+      tags:
+      - User
+  /users/login:
+    post:
+      description: Logging in to get jwt token to access MyGram.
+      parameters:
+      - description: the body to login a user
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.LoginInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Login as as user.
+      tags:
+      - User
+  /users/register:
+    post:
+      description: User Register to get access to MyGram.
+      parameters:
+      - description: the body to login a user
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.RegisterInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Register as as user.
+      tags:
+      - User
+swagger: "2.0"

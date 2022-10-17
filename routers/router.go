@@ -5,6 +5,8 @@ import (
 	"mygram/middlewares"
 
 	"github.com/gin-gonic/gin"
+	swaggerFiles "github.com/swaggo/files"     // swagger embed files
+    ginSwagger "github.com/swaggo/gin-swagger" // gin-swagger middleware
 )
 
 func StartApp() *gin.Engine {
@@ -18,6 +20,8 @@ func StartApp() *gin.Engine {
 		userRouter.PUT("/:userId", middlewares.UserAuthorization(), controllers.UserUpdate)
 		userRouter.DELETE("/:userId", middlewares.UserAuthorization(), controllers.UserDelete)
 	}
+
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	return r
 }

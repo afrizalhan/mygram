@@ -16,6 +16,32 @@ var (
 	appJSON = "application/json"
 )
 
+type RegisterInput struct {
+	Age      int    `json:"age" binding:"required" example:"8"`
+	Email    string `json:"email" binding:"required" example:"maryjane@gmail.com"`
+	Password string `json:"password" binding:"required" example:"maryjanewats"`
+	Username string `json:"username" binding:"required" example:"maryj"`
+}
+
+type UpdateInput struct {
+	Email    string `json:"email" binding:"required" example:"johndoe@gmail.com"`
+	Username string `json:"username" binding:"required" example:"johndoe"`	
+}
+
+type LoginInput struct {
+	Email    string `json:"email" binding:"required" example:"maryjane@gmail.com"`
+	Password string `json:"password" binding:"required" example:"maryjanewats"`
+}
+
+
+// RegisterUser godoc
+// @Summary Register as as user.
+// @Description User Register to get access to MyGram.
+// @Tags User
+// @Param Body body RegisterInput true "the body to login a user"
+// @Produce json
+// @Success 200 {object} map[string]interface{}
+// @Router /users/register [post]
 func UserRegister(c *gin.Context) {
 	db := database.GetDB()
 
@@ -41,13 +67,21 @@ func UserRegister(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusCreated, gin.H{
-		"Age": User.Age,
-		"Email":     User.Email,
-		"id":        User.ID,
+		"Age":      User.Age,
+		"Email":    User.Email,
+		"id":       User.ID,
 		"Username": User.Username,
 	})
 }
 
+// LoginUser godoc
+// @Summary Login as as user.
+// @Description Logging in to get jwt token to access MyGram.
+// @Tags User
+// @Param Body body LoginInput true "the body to login a user"
+// @Produce json
+// @Success 200 {object} map[string]interface{}
+// @Router /users/login [post]
 func UserLogin(c *gin.Context) {
 	db := database.GetDB()
 
@@ -90,13 +124,23 @@ func UserLogin(c *gin.Context) {
 	})
 }
 
+// UpdateUser godoc
+// @Summary Update User.
+// @Description Update User by id.
+// @Tags User
+// @Produce json
+// @Param userId path string true "User id"
+// @Param Body body UpdateInput true "the body to update user"
+// @Param Authorization header string true "Authorization. How to input in swagger : 'Bearer <insert_your_token_here>'"
+// @Security BearerToken
+// @Success 200 {object} map[string]interface{}
+// @Router /users/{userId} [put]
 func UserUpdate(c *gin.Context) {
 	db := database.GetDB()
 
 	contentType := helpers.GetContentType(c)
 	_, _ = db, contentType
 	userIdParam, _ := strconv.Atoi(c.Param("userId"))
-
 
 	User := models.User{}
 
@@ -119,14 +163,24 @@ func UserUpdate(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{
-		"id":        User.ID,
-		"Email":     User.Email,
-		"Username": User.Username,
-		"Age": User.Age,
-		"Updated_at" : User.UpdatedAt,
+		"id":         User.ID,
+		"Email":      User.Email,
+		"Username":   User.Username,
+		"Age":        User.Age,
+		"Updated_at": User.UpdatedAt,
 	})
 }
 
+// DeleteUser godoc
+// @Summary Delete one User .
+// @Description Delete a User by id.
+// @Tags User
+// @Produce json
+// @Param userId path string true "User id"
+// @Param Authorization header string true "Authorization. How to input in swagger : 'Bearer <insert_your_token_here>'"
+// @Security BearerToken
+// @Success 200 {object} map[string]boolean
+// @Router /users/{userId} [delete]
 func UserDelete(c *gin.Context) {
 	db := database.GetDB()
 
@@ -147,4 +201,3 @@ func UserDelete(c *gin.Context) {
 		"message": "Your account has been successfully deleted",
 	})
 }
-
