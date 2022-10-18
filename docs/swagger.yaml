@@ -128,6 +128,15 @@ definitions:
     - password
     - username
     type: object
+  models.SocialMediaInput:
+    properties:
+      name:
+        example: Github
+        type: string
+      social_media_url:
+        example: github.com/username
+        type: string
+    type: object
   models.UpdateInput:
     properties:
       email:
@@ -372,6 +381,117 @@ paths:
       summary: Update Photo.
       tags:
       - Photos
+  /socialmedias:
+    get:
+      description: Get every socials that every user added.
+      parameters:
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.GetPhotoRes'
+            type: array
+      security:
+      - BearerToken: []
+      summary: Get all socials.
+      tags:
+      - Social Media
+  /socialmedias/:
+    post:
+      description: User add their social media.
+      parameters:
+      - description: the body to create a social media
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/models.SocialMediaInput'
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerToken: []
+      summary: Create new social media for user.
+      tags:
+      - Social Media
+  /socialmedias/{socialMediaId}:
+    delete:
+      description: Delete a Social media by id.
+      parameters:
+      - description: Social Media id
+        in: path
+        name: socialMediaId
+        required: true
+        type: string
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: boolean
+            type: object
+      security:
+      - BearerToken: []
+      summary: Delete added social media .
+      tags:
+      - Social Media
+    put:
+      description: Update added social media by id.
+      parameters:
+      - description: Social Media id
+        in: path
+        name: socialMediaId
+        required: true
+        type: string
+      - description: the body to update social media
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/models.SocialMediaInput'
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerToken: []
+      summary: Update Social Media.
+      tags:
+      - Social Media
   /users/{userId}:
     delete:
       description: Delete a User by id.
@@ -457,7 +577,7 @@ paths:
     post:
       description: User Register to get access to MyGram.
       parameters:
-      - description: the body to login a user
+      - description: the body to register a user
         in: body
         name: Body
         required: true

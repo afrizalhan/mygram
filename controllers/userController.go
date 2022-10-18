@@ -20,7 +20,7 @@ var (
 // @Summary Register as as user.
 // @Description User Register to get access to MyGram.
 // @Tags User
-// @Param Body body models.RegisterInput true "the body to login a user"
+// @Param Body body models.RegisterInput true "the body to register a user"
 // @Produce json
 // @Success 200 {object} map[string]interface{}
 // @Router /users/register [post]

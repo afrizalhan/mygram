@@ -19,7 +19,7 @@ type GetPhotoRes struct {
 type GetCommentRes struct {
 	ID        uint      `json:"id"`
 	Message   string    `json:"message"`
-	PhotoID   uint    `json:"photo_id"`
+	PhotoID   uint      `json:"photo_id"`
 	UserID    uint      `json:"user_id"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
@@ -35,4 +35,18 @@ type GetCommentRes struct {
 		PhotoURL string `json:"photo_url"`
 		UserID   uint   `json:"user_id"`
 	} `json:"Photo"`
+}
+
+type GetSocialRes struct {
+	ID             uint      `json:"id"`
+	Name           string    `json:"name"`
+	SocialMediaUrl string    `json:"social_media_url"`
+	UserID         uint      `json:"user_id"`
+	CreatedAt      time.Time `json:"created_at"`
+	UpdatedAt      time.Time `json:"updated_at"`
+	User           struct {
+		ID       uint   `json:"id"`
+		Email    string `json:"email"`
+		Username string `json:"username"`
+	} `json:"User"`
 }

@@ -31,3 +31,8 @@ type CommentInput struct {
 type CommentUpdateInput struct {
 	Message string `json:"message" binding:"required" example:"Fotonya Keren!!"`
 }
+
+type SocialMediaInput struct {
+	Name           string `json:"name" example:"Github"`
+	SocialMediaUrl string `json:"social_media_url" example:"github.com/username"`
+}

@@ -39,6 +39,15 @@ func StartApp() *gin.Engine {
 		commentRouter.DELETE("/:commentId", middlewares.CommentAuthorization(), controllers.DeleteComment)
 	}
 
+	socialsRouter := r.Group("/socialmedias")
+	{
+		socialsRouter.Use(middlewares.Authentication())
+		socialsRouter.GET("/", controllers.GetSocials)
+		socialsRouter.POST("/", controllers.CreateSocial)
+		socialsRouter.PUT("/:socialMediaId", middlewares.SocialMediaAuthorization(), controllers.UpdateSocial)
+		socialsRouter.DELETE("/:socialMediaId", middlewares.SocialMediaAuthorization(), controllers.DeleteSocial)
+	}
+
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	return r
