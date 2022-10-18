@@ -95,7 +95,7 @@ func CommentAuthorization() gin.HandlerFunc {
 		}
 		userData := c.MustGet("userData").(jwt.MapClaims)
 		userID := uint(userData["id"].(float64))
-		Comment := models.Photo{}
+		Comment := models.Comment{}
 
 		err = db.Select("user_id").First(&Comment, uint(commentID)).Error
 

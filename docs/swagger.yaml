@@ -1,4 +1,61 @@
 definitions:
+  models.CommentInput:
+    properties:
+      message:
+        example: Fotonya bagus!!
+        type: string
+      photo_id:
+        example: 3
+        type: integer
+    required:
+    - message
+    - photo_id
+    type: object
+  models.CommentUpdateInput:
+    properties:
+      message:
+        example: Fotonya Keren!!
+        type: string
+    required:
+    - message
+    type: object
+  models.GetCommentRes:
+    properties:
+      Photo:
+        properties:
+          caption:
+            type: string
+          id:
+            type: integer
+          photo_url:
+            type: string
+          title:
+            type: string
+          user_id:
+            type: integer
+        type: object
+      User:
+        properties:
+          email:
+            type: string
+          id:
+            type: integer
+          username:
+            type: string
+        type: object
+      created_at:
+        type: string
+      id:
+        type: integer
+      message:
+        type: string
+      photo_id:
+        type: integer
+      updated_at:
+        type: string
+      user_id:
+        type: integer
+    type: object
   models.GetPhotoRes:
     properties:
       User:
@@ -93,6 +150,117 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   termsOfService: http://swagger.io/terms/
 paths:
+  /comments:
+    get:
+      description: Get every comment that exist on MyGram.
+      parameters:
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.GetCommentRes'
+            type: array
+      security:
+      - BearerToken: []
+      summary: Get all comments from all posts.
+      tags:
+      - Comments
+  /comments/:
+    post:
+      description: User post a comment on a picture.
+      parameters:
+      - description: the body to create a photo
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/models.CommentInput'
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerToken: []
+      summary: Create new comment for a photo.
+      tags:
+      - Comments
+  /comments/{commentId}:
+    delete:
+      description: Delete a comment by id.
+      parameters:
+      - description: Comment id
+        in: path
+        name: commentId
+        required: true
+        type: string
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: boolean
+            type: object
+      security:
+      - BearerToken: []
+      summary: Delete one comment .
+      tags:
+      - Comments
+    put:
+      description: Update Comment by id.
+      parameters:
+      - description: Comment id
+        in: path
+        name: commentId
+        required: true
+        type: string
+      - description: the body to update comment
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/models.CommentUpdateInput'
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerToken: []
+      summary: Update Comment.
+      tags:
+      - Comments
   /photos:
     get:
       description: Get every photo that exist on MyGram.

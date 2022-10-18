@@ -82,15 +82,15 @@ func CreateComment(c *gin.Context) {
 	})
 }
 
-// GetPhotos godoc
-// @Summary Get all Photo from database.
-// @Description Get every photo that exist on MyGram.
-// @Tags Photos
+// GetComments godoc
+// @Summary Get all comments from all posts.
+// @Description Get every comment that exist on MyGram.
+// @Tags Comments
 // @Param Authorization header string true "Authorization. How to input in swagger : 'Bearer <insert_your_token_here>'"
 // @Security BearerToken
 // @Produce json
-// @Success 200 {object} []models.GetPhotoRes
-// @Router /photos [get]
+// @Success 200 {object} []models.GetCommentRes
+// @Router /comments [get]
 func GetComments(c *gin.Context) {
 	db := database.GetDB()
 
@@ -132,17 +132,17 @@ func GetComments(c *gin.Context) {
 	c.JSON(http.StatusOK, result)
 }
 
-// UpdatePhoto godoc
-// @Summary Update Photo.
-// @Description Update Photo by id.
-// @Tags Photos
+// UpdateComment godoc
+// @Summary Update Comment.
+// @Description Update Comment by id.
+// @Tags Comments
 // @Produce json
-// @Param photoId path string true "Photo id"
-// @Param Body body models.PhotoInput true "the body to update photo"
+// @Param commentId path string true "Comment id"
+// @Param Body body models.CommentUpdateInput true "the body to update comment"
 // @Param Authorization header string true "Authorization. How to input in swagger : 'Bearer <insert_your_token_here>'"
 // @Security BearerToken
 // @Success 200 {object} map[string]interface{}
-// @Router /photos/{photoId} [put]
+// @Router /comments/{commentId} [put]
 func UpdateComment(c *gin.Context) {
 	db := database.GetDB()
 
@@ -212,16 +212,16 @@ func UpdateComment(c *gin.Context) {
 	})
 }
 
-// DeletePhoto godoc
-// @Summary Delete one Photo .
-// @Description Delete a Photo by id.
-// @Tags Photos
+// DeleteComment godoc
+// @Summary Delete one comment .
+// @Description Delete a comment by id.
+// @Tags Comments
 // @Produce json
-// @Param photoId path string true "Photo id"
+// @Param commentId path string true "Comment id"
 // @Param Authorization header string true "Authorization. How to input in swagger : 'Bearer <insert_your_token_here>'"
 // @Security BearerToken
 // @Success 200 {object} map[string]boolean
-// @Router /photos/{photoId} [delete]
+// @Router /comments/{commentId} [delete]
 func DeleteComment(c *gin.Context) {
 	db := database.GetDB()
 

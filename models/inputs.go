@@ -22,3 +22,12 @@ type PhotoInput struct {
 	Caption  string `json:"caption" binding:"required" example:"Foto di pantai"`
 	PhotoURL string `json:"photo_url" binding:"required" example:"https://static.vecteezy.com/packs/media/vectors/term-bg-1-666de2d9.jpg"`
 }
+
+type CommentInput struct {
+	Message string `json:"message" binding:"required" example:"Fotonya bagus!!"`
+	PhotoID uint   `json:"photo_id" binding:"required" example:"3"`
+}
+
+type CommentUpdateInput struct {
+	Message string `json:"message" binding:"required" example:"Fotonya Keren!!"`
+}
