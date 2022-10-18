@@ -8,12 +8,13 @@ import (
 )
 
 type Photo struct {
-	ID        uint    `gorm:"primarykey" json:"id"`
+	ID        uint      `gorm:"primarykey" json:"id"`
 	Title     string    `gorm:"not null" json:"title" form:"title" valid:"required~title is required"`
 	Caption   string    `json:"caption" form:"caption"`
 	PhotoURL  string    `gorm:"not null" json:"photo_url" form:"photo_url" valid:"required~photo url is required"`
-	UserID    uint    `json:"user_id" form:"user_id"`
+	UserID    uint      `json:"user_id" form:"user_id"`
 	User      User      `json:"user" form:"user"`
+	Comment   []Comment `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" json:"comment"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
 }
