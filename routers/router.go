@@ -21,6 +21,15 @@ func StartApp() *gin.Engine {
 		userRouter.DELETE("/:userId", middlewares.UserAuthorization(), controllers.UserDelete)
 	}
 
+	photoRouter := r.Group("/photos")
+	{
+		photoRouter.Use(middlewares.Authentication())
+		photoRouter.GET("/", controllers.GetPhotos)
+		photoRouter.POST("/", controllers.CreatePhoto)
+		photoRouter.PUT("/:photoId", middlewares.PhotoAuthorization(), controllers.UpdatePhoto)
+		photoRouter.DELETE("/:photoId", middlewares.PhotoAuthorization(), controllers.DeletePhoto)
+	}
+
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	return r

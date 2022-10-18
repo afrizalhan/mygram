@@ -16,29 +16,11 @@ var (
 	appJSON = "application/json"
 )
 
-type RegisterInput struct {
-	Age      int    `json:"age" binding:"required" example:"8"`
-	Email    string `json:"email" binding:"required" example:"maryjane@gmail.com"`
-	Password string `json:"password" binding:"required" example:"maryjanewats"`
-	Username string `json:"username" binding:"required" example:"maryj"`
-}
-
-type UpdateInput struct {
-	Email    string `json:"email" binding:"required" example:"johndoe@gmail.com"`
-	Username string `json:"username" binding:"required" example:"johndoe"`	
-}
-
-type LoginInput struct {
-	Email    string `json:"email" binding:"required" example:"maryjane@gmail.com"`
-	Password string `json:"password" binding:"required" example:"maryjanewats"`
-}
-
-
 // RegisterUser godoc
 // @Summary Register as as user.
 // @Description User Register to get access to MyGram.
 // @Tags User
-// @Param Body body RegisterInput true "the body to login a user"
+// @Param Body body models.RegisterInput true "the body to login a user"
 // @Produce json
 // @Success 200 {object} map[string]interface{}
 // @Router /users/register [post]
@@ -78,7 +60,7 @@ func UserRegister(c *gin.Context) {
 // @Summary Login as as user.
 // @Description Logging in to get jwt token to access MyGram.
 // @Tags User
-// @Param Body body LoginInput true "the body to login a user"
+// @Param Body body models.LoginInput true "the body to login a user"
 // @Produce json
 // @Success 200 {object} map[string]interface{}
 // @Router /users/login [post]
@@ -130,7 +112,7 @@ func UserLogin(c *gin.Context) {
 // @Tags User
 // @Produce json
 // @Param userId path string true "User id"
-// @Param Body body UpdateInput true "the body to update user"
+// @Param Body body models.UpdateInput true "the body to update user"
 // @Param Authorization header string true "Authorization. How to input in swagger : 'Bearer <insert_your_token_here>'"
 // @Security BearerToken
 // @Success 200 {object} map[string]interface{}

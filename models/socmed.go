@@ -6,7 +6,7 @@ import (
 )
 
 type SocialMedia struct {
-	ID             uint64    `gorm:"primarykey" json:"id"`
+	ID             uint    `gorm:"primarykey" json:"id"`
 	Name           string    `gorm:"not null" json:"name" form:"name" valid:"required~name is required"`
 	SocialMediaUrl string    `gorm:"not null" json:"social_media_url" form:"social_media_url" valid:"required~social media url is required"`
 	UserID         uint64    `json:"user_id" form:"user_id"`

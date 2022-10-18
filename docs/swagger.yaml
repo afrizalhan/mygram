@@ -1,5 +1,29 @@
 definitions:
-  controllers.LoginInput:
+  models.GetPhotoRes:
+    properties:
+      User:
+        properties:
+          email:
+            type: string
+          username:
+            type: string
+        type: object
+      caption:
+        type: string
+      created_at:
+        type: string
+      id:
+        type: integer
+      photo_url:
+        type: string
+      title:
+        type: string
+      updated_at:
+        type: string
+      user_id:
+        type: integer
+    type: object
+  models.LoginInput:
     properties:
       email:
         example: maryjane@gmail.com
@@ -11,7 +35,23 @@ definitions:
     - email
     - password
     type: object
-  controllers.RegisterInput:
+  models.PhotoInput:
+    properties:
+      caption:
+        example: Foto di pantai
+        type: string
+      photo_url:
+        example: https://static.vecteezy.com/packs/media/vectors/term-bg-1-666de2d9.jpg
+        type: string
+      title:
+        example: Foto Selfie
+        type: string
+    required:
+    - caption
+    - photo_url
+    - title
+    type: object
+  models.RegisterInput:
     properties:
       age:
         example: 8
@@ -31,7 +71,7 @@ definitions:
     - password
     - username
     type: object
-  controllers.UpdateInput:
+  models.UpdateInput:
     properties:
       email:
         example: johndoe@gmail.com
@@ -53,6 +93,117 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   termsOfService: http://swagger.io/terms/
 paths:
+  /photos:
+    get:
+      description: Get every photo that exist on MyGram.
+      parameters:
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.GetPhotoRes'
+            type: array
+      security:
+      - BearerToken: []
+      summary: Get all Photo from database.
+      tags:
+      - Photos
+  /photos/:
+    post:
+      description: User post a picture.
+      parameters:
+      - description: the body to create a photo
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/models.PhotoInput'
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerToken: []
+      summary: Create new photo data.
+      tags:
+      - Photos
+  /photos/{photoId}:
+    delete:
+      description: Delete a Photo by id.
+      parameters:
+      - description: Photo id
+        in: path
+        name: photoId
+        required: true
+        type: string
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: boolean
+            type: object
+      security:
+      - BearerToken: []
+      summary: Delete one Photo .
+      tags:
+      - Photos
+    put:
+      description: Update Photo by id.
+      parameters:
+      - description: Photo id
+        in: path
+        name: photoId
+        required: true
+        type: string
+      - description: the body to update photo
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/models.PhotoInput'
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerToken: []
+      summary: Update Photo.
+      tags:
+      - Photos
   /users/{userId}:
     delete:
       description: Delete a User by id.
@@ -94,7 +245,7 @@ paths:
         name: Body
         required: true
         schema:
-          $ref: '#/definitions/controllers.UpdateInput'
+          $ref: '#/definitions/models.UpdateInput'
       - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
         in: header
         name: Authorization
@@ -122,7 +273,7 @@ paths:
         name: Body
         required: true
         schema:
-          $ref: '#/definitions/controllers.LoginInput'
+          $ref: '#/definitions/models.LoginInput'
       produces:
       - application/json
       responses:
@@ -143,7 +294,7 @@ paths:
         name: Body
         required: true
         schema:
-          $ref: '#/definitions/controllers.RegisterInput'
+          $ref: '#/definitions/models.RegisterInput'
       produces:
       - application/json
       responses:
