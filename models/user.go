@@ -10,16 +10,16 @@ import (
 )
 
 type User struct {
-	ID uint `gorm:"primarykey" json:"id"`
-	Username string `gorm:"not null;uniqueIndex" json:"username" form:"username" valid:"required~your username is required"`
-	Email    string `gorm:"not null;uniqueIndex" json:"email" form:"email" valid:"required~email is required,email~Invalid email format"`
-	Password string `gorm:"not null" json:"password" form:"password" valid:"required~password is required,minstringlength(6)~password must be at least 6 characters"`
-	Age int `gorm:"not null" json:"age" form:"age" valid:"required~age is required"`
-	CreatedAt time.Time `json:"created_at,omitempty"`
-	UpdatedAt time.Time `json:"updated_at,omitempty"`
-	Photo []Photo `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" json:"photo"`
-	Comment []Comment `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" json:"comment"`
-	Socmed []SocialMedia `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" json:"socmed"`
+	ID        uint          `gorm:"primarykey" json:"id"`
+	Username  string        `gorm:"not null;uniqueIndex" json:"username" form:"username" valid:"required~your username is required"`
+	Email     string        `gorm:"not null;uniqueIndex" json:"email" form:"email" valid:"required~email is required,email~Invalid email format"`
+	Password  string        `gorm:"not null" json:"password" form:"password" valid:"required~password is required,minstringlength(6)~password must be at least 6 characters"`
+	Age       int           `gorm:"not null" json:"age" form:"age" valid:"required~age is required"`
+	CreatedAt time.Time     `json:"created_at,omitempty"`
+	UpdatedAt time.Time     `json:"updated_at,omitempty"`
+	Photo     []Photo       `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" json:"photo"`
+	Comment   []Comment     `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" json:"comment"`
+	Socmed    []SocialMedia `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" json:"socmed"`
 }
 
 type UserUpdate struct {
