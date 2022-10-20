@@ -10,9 +10,9 @@ import (
 type Comment struct {
 	ID        uint      `gorm:"primarykey" json:"id"`
 	UserID    uint      `json:"user_id" form:"user_id"`
-	User      User      `json:"user" form:"user"`
+	User      User      `json:"user" form:"user" gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
 	PhotoID   uint      `json:"photo_id" form:"photo_id"`
-	Photo     Photo     `json:"photo" form:"photo"`
+	Photo     Photo     `json:"photo" form:"photo" gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
 	Message   string    `gorm:"not null" json:"message" form:"message" valid:"required~message is required"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`

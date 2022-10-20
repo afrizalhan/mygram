@@ -17,9 +17,9 @@ type User struct {
 	Age       int           `gorm:"not null" json:"age" form:"age" valid:"required~age is required"`
 	CreatedAt time.Time     `json:"created_at,omitempty"`
 	UpdatedAt time.Time     `json:"updated_at,omitempty"`
-	Photo     []Photo       `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" json:"photo"`
-	Comment   []Comment     `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" json:"comment"`
-	Socmed    []SocialMedia `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" json:"socmed"`
+	Photo     []Photo       `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;" json:"photo"`
+	Comment   []Comment     `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;" json:"comment"`
+	Socmed    []SocialMedia `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;" json:"socmed"`
 }
 
 type UserUpdate struct {

@@ -13,8 +13,8 @@ type Photo struct {
 	Caption   string    `json:"caption" form:"caption"`
 	PhotoURL  string    `gorm:"not null" json:"photo_url" form:"photo_url" valid:"required~photo url is required"`
 	UserID    uint      `json:"user_id" form:"user_id"`
-	User      User      `json:"user" form:"user"`
-	Comment   []Comment `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" json:"comment"`
+	User      User      `json:"user" form:"user" gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
+	Comment   []Comment `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;" json:"comment"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
 }
