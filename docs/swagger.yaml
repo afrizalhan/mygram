@@ -80,6 +80,30 @@ definitions:
       user_id:
         type: integer
     type: object
+  models.GetSocialRes:
+    properties:
+      User:
+        properties:
+          email:
+            type: string
+          id:
+            type: integer
+          username:
+            type: string
+        type: object
+      created_at:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      social_media_url:
+        type: string
+      updated_at:
+        type: string
+      user_id:
+        type: integer
+    type: object
   models.LoginInput:
     properties:
       email:
@@ -397,7 +421,7 @@ paths:
           description: OK
           schema:
             items:
-              $ref: '#/definitions/models.GetPhotoRes'
+              $ref: '#/definitions/models.GetSocialRes'
             type: array
       security:
       - BearerToken: []

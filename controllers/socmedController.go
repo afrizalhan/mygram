@@ -76,7 +76,7 @@ func CreateSocial(c *gin.Context) {
 // @Param Authorization header string true "Authorization. How to input in swagger : 'Bearer <insert_your_token_here>'"
 // @Security BearerToken
 // @Produce json
-// @Success 200 {object} []models.GetPhotoRes
+// @Success 200 {object} []models.GetSocialRes
 // @Router /socialmedias [get]
 func GetSocials(c *gin.Context) {
 	db := database.GetDB()

@@ -403,7 +403,7 @@ const docTemplate = `{
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/models.GetPhotoRes"
+                                "$ref": "#/definitions/models.GetSocialRes"
                             }
                         }
                     }
@@ -819,6 +819,43 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "title": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                },
+                "user_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.GetSocialRes": {
+            "type": "object",
+            "properties": {
+                "User": {
+                    "type": "object",
+                    "properties": {
+                        "email": {
+                            "type": "string"
+                        },
+                        "id": {
+                            "type": "integer"
+                        },
+                        "username": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "social_media_url": {
                     "type": "string"
                 },
                 "updated_at": {
