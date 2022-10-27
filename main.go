@@ -17,7 +17,7 @@ import (
 // @termsOfService http://swagger.io/terms/
 func main() {
 	docs.SwaggerInfo.Title = "MyGram API"
-    docs.SwaggerInfo.Description = "This is a MyGram API server."
+    docs.SwaggerInfo.Description = "This is a MyGram API server. \n Made by Raehan Afrizal Wicaksono"
     docs.SwaggerInfo.Version = "1.0"
     docs.SwaggerInfo.Schemes = []string{"https"}
 
