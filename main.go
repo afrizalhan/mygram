@@ -4,6 +4,7 @@ import (
 	"mygram/database"
 	"mygram/routers"
 	"mygram/docs"
+	"os"
 )
 
 // @contact.name API Support
@@ -18,10 +19,12 @@ func main() {
 	docs.SwaggerInfo.Title = "MyGram API"
     docs.SwaggerInfo.Description = "This is a MyGram API server."
     docs.SwaggerInfo.Version = "1.0"
-    docs.SwaggerInfo.Host = "localhost:8080"
     docs.SwaggerInfo.Schemes = []string{"http", "https"}
 
 	database.StartDB()
+
+	var PORT = os.Getenv("PORT")
+
 	r := routers.StartApp()
-	r.Run(":8080")
+	r.Run(":" + PORT)
 }
